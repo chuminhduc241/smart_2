@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { positions, Provider as AlertProvider, transitions } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import "antd/dist/antd.min.css";
 
 import { persistor, store } from "./redux/store";
 import AppContainer from "./AppContainer";
