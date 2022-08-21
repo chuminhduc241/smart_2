@@ -20,7 +20,15 @@ const Cart = () => {
 
   useEffect(() => {
     const sumPrice = cart.reduce((pre, item) => {
-      return pre + item.product.price_spe * item.quantity;
+      
+      let price = 0;
+      if(item.product.discount === 0){
+        price = item.product.price*item.quantity;
+      }else{
+        price = (item.product.price - item.product.price*item.product.discount/100)*item.quantity;
+      }
+      console.log(price)
+      return pre + price;
     }, 0);
     setTotal(sumPrice);
   }, [cart]);
@@ -82,8 +90,10 @@ const Cart = () => {
                         <>
                           <div className="cart-tbody">
                             {cart &&
-                              cart.map((c, index) => (
-                                <div className="item-cart">
+                              cart.map((c, index) => {
+                                let showPrice = c.product.discount === 0 ? c.product.price: c.product.price - c.product.price*c.product.discount/100;
+                                return <>
+                                 <div className="item-cart">
                                   <div style={{ width: "17%" }}>
                                     <Link
                                       className="product-image"
@@ -115,7 +125,8 @@ const Cart = () => {
                                   >
                                     <span className="item-price">
                                       <span className="price">
-                                        {formatter.format(c.product.price_spe)}₫
+                                      
+                                        {formatter.format(showPrice)}₫
                                       </span>
                                     </span>
                                   </div>
@@ -155,7 +166,7 @@ const Cart = () => {
                                     <span className="item-price">
                                       <span className="price">
                                         {formatter.format(
-                                          c.product.price_spe * +c.quantity
+                                         showPrice * c.quantity
                                         )}
                                         ₫
                                       </span>
@@ -174,7 +185,10 @@ const Cart = () => {
                                     </Tooltip>
                                   </div>
                                 </div>
-                              ))}
+                                </>
+                              }
+                               
+                              )}
                           </div>
                           <table className="shopping-cart-table-total mb-0">
                             <tfoot>

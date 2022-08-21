@@ -24,7 +24,13 @@ const Payment = () => {
 
   const orderServices = new OrderService();
   const sumPrice = cart.reduce((pre, item) => {
-    return pre + item.product.price_spe * item.quantity;
+    let price = 0;
+    if(item.product.discount === 0){
+      price = item.product.price*item.quantity;
+    }else{
+      price = (item.product.price - item.product.price*item.product.discount/100)*item.quantity;
+    }
+    return pre + price;
   }, 0);
   const formatter = new Intl.NumberFormat("vn");
 
@@ -193,8 +199,10 @@ const Payment = () => {
                       <h4 className="title">Đơn hàng</h4>
                       <div className="product-info-main">
                         {cart.length > 0 &&
-                          cart.map((c) => (
-                            <div className="item-prod">
+                          cart.map((c) =>{
+                            let showpPice = c.product.discount===0 ? c.product.price : c.product.price - c.product.discount*c.product.price/100;
+                            return <>
+                             <div className="item-prod">
                               <div className="img">
                                 <img src={c.product.images[0].url} alt="" />
                                 <span className="number">{c.quantity}</span>
@@ -203,10 +211,11 @@ const Payment = () => {
                                 <p>{c.product.name}</p>
                               </div>
                               <p className="price">
-                                {formatter.format(c.product.price_spe)}₫
+                               
+                                {formatter.format(showpPice)}₫
                               </p>
-                            </div>
-                          ))}
+                            </div></>
+                          } )}
                         <div className="payment-due">
                           <p className="title">Tổng cộng</p>
                           <div className="total">

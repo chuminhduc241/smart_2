@@ -62,8 +62,19 @@ const Detail = () => {
                   </div>
                   <div className="cart-tbody">
                     {order?.cart &&
-                      order.cart.map((item, index) => (
-                        <div key={index} className="item-cart">
+                      order.cart.map((item, index) => {
+                       let {discount, price} = item.id_product;
+                        let showPrice = 0;
+                      if(discount === 0)
+                      {
+                        showPrice = price
+                      }
+                      else{
+                        showPrice = price - discount*price/100;
+                      }
+                        
+                       return <>
+                              <div key={index} className="item-cart">
                           <div style={{ width: "17%" }}>
                             <a className="product-image" href="/">
                               <img
@@ -82,7 +93,7 @@ const Detail = () => {
                           <div className="a-center" style={{ width: "15%" }}>
                             <span className="item-price">
                               <span className="price">
-                                {formatter.format(item?.id_product?.price_spe)}₫
+                                {formatter.format(showPrice)}₫
                               </span>
                             </span>
                           </div>
@@ -93,14 +104,17 @@ const Detail = () => {
                             <span className="item-price">
                               <span className="price">
                                 {formatter.format(
-                                  item?.id_product?.price_spe * item.number
+                                  showPrice * item.number
                                 )}
                                 ₫
                               </span>
                             </span>
                           </div>
                         </div>
-                      ))}
+                       </>
+                      }
+
+                      )}
                   </div>
                   <table className="shopping-cart-table-total mb-0">
                     <tfoot>

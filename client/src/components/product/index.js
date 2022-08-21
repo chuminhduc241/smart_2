@@ -26,7 +26,7 @@ const Product = ({ product }) => {
     );
     alert.success("Thêm vào giỏ hàng thành công !")
   };
-
+  const showprice = discount!==0 ? price - price*discount/100 : price; 
   const formatter = new Intl.NumberFormat("vn");
   return (
     <div className="product-card">
@@ -44,11 +44,13 @@ const Product = ({ product }) => {
         </h3>
         <div className="product-hides">
           <div className="special-price">
-            <span>{formatter.format(price_spe)}₫</span>
+            <span>{formatter.format(showprice)}₫</span>
           </div>
           <div className="old-price">
             <span className="price product-price-old">
-              {formatter.format(price)}₫
+             {discount!==0 &&  formatter.format(price)} 
+            {discount!==0 &&  <>đ</>}
+
             </span>
           </div>
         </div>
