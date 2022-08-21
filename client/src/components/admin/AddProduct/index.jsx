@@ -40,23 +40,23 @@ const AddProduct = () => {
   }]);
   const [description,setDescription] = useState("");
   const [subcategory, setSubcategory] = useState([]);
-  const category = categories.map((item)=>item.name);
+  const category = categories?.map((item)=>item.name);
   const [imagesPreview, setImagesPreview] = useState([]);
   const [cate, setCate] = useState("");
   const alert = useAlert();
   const history = useHistory();
   const categoryService = new CategoryService();
   const productService = new ProductService();
-  // useEffect(() => {
-  //   const getCategory = async () => {
-  //     const res = await categoryService.getCategory();
-  //     setCategories(res);
-  //     setCate(res[0]?.name);
-  //   };
-  //   getCategory();
+  useEffect(() => {
+    const getCategory = async () => {
+      const res = await categoryService.getCategory();
+      setCategories(res);
+      
+    };
+    getCategory();
     
-  // }, []);
-  // console.log(categories)
+  }, []);
+
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
@@ -80,10 +80,13 @@ const AddProduct = () => {
     history.push("/admin/products");
   };
   const handelChangeCategory=(value,setFieldValue)=>{
+   
+   
     const element = categories.find(item => item.name=== value);
-    const nsx = element?.subCategories.split(", ");
-    nsx && setSubcategory(nsx)
+    const subCate = element?.subCategories?.map((item)=>item.name);
+    setSubcategory(subCate);
     setFieldValue("category",value);
+   
    
   }
  

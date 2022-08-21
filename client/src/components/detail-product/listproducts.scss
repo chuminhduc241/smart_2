@@ -33,11 +33,18 @@
         .product-info {
           width: calc(100% - 110px);
           float: right;
+         
           h3 {
             margin-top: 0;
             font-size: 14px;
             font-weight: 400;
             margin-bottom: 10px;
+
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;  
+              overflow: hidden;
+            
             a {
               color: #323c3f;
               letter-spacing: 0.01em;

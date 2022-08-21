@@ -24,8 +24,10 @@ const ListPorducts = (value) => {
       <h3 className="title_module">Sản phẩm liên quan</h3>
       <div className="sale_off_today">
         {listProducts &&
-          listProducts.map((product) => (
-            <div key={product._id} className="item_small">
+          listProducts.map((product) => {
+            let showPrice = product.discount === 0 ?  product.price: product.price - product.price*product.discount/100;
+            return <>
+               <div key={product._id} className="item_small">
               <div className="product-mini-item">
                 <Link to={`/detail/${product._id}`}>
                   <img src={product.images[0].url} alt={product.name} />
@@ -36,16 +38,19 @@ const ListPorducts = (value) => {
                   </h3>
                   <div className="price-box">
                     <span className="price">
-                      <span className="product-price">{formatter.format(product.price_spe)}₫</span>
+                      <span className="product-price">{formatter.format(showPrice)}₫</span>
                     </span>
-                    <span className="old-price">
+                    {
+                      product.discount && <span className="old-price">
                       <del className="sale-price">{formatter.format(product?.price)}₫</del>
                     </span>
+                    }
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+            </>
+})}
       </div>
     </div>
   );

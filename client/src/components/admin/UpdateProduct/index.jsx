@@ -51,17 +51,15 @@ const UpdateProduct = () => {
     getProductById();
   },[])
 
- 
-  // useEffect(() => {
-  //   const getCategory = async () => {
-  //     const res = await categoryService.getCategory();
-  //     setCategories(res);
-  //     setCate(res[0]?.name);
-  //   };
-  //   getCategory();
+  useEffect(() => {
+    const getCategory = async () => {
+      const res = await categoryService.getCategory();
+      setCategories(res);
+      
+    };
+    getCategory();
     
-  // }, []);
-  // console.log(categories)
+  }, []);
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
@@ -85,14 +83,11 @@ const UpdateProduct = () => {
     history.push("/admin/products");
   };
   const handelChangeCategory=(value,setFieldValue)=>{
-    console.log(value);
-    console.log(setFieldValue);
     const element = categories.find(item => item.name=== value);
-    const nsx = element?.subCategories.split(", ");
-    nsx && setSubcategory(nsx)
+    const subCate = element?.subCategories?.map((item)=>item.name);
+    setSubcategory(subCate);
     setFieldValue("category",value);
   }
-
   return (
     <>
      {product && <Paper className="addProd-container grid wide pt-2 pb-2 mt-4">

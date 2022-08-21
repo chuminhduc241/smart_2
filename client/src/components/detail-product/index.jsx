@@ -70,7 +70,7 @@ const Detail = () => {
     setNumberProd(1);
     alert.success("Thêm thành công !");
   };
-
+  const showprice = product?.discount!==0 ? product?.price - product?.price*product?.discount/100: product?.price;
   return (
     <>
       <div className="grid wide pt-2 pb-2 mb-4 border-bottom">
@@ -119,7 +119,7 @@ const Detail = () => {
                           Thương hiệu:
                           <span className="status_name">
                             {" "}
-                            {product?.category}
+                            {product?.nsx}
                           </span>
                         </span>
                         <span className="first_status">
@@ -135,28 +135,15 @@ const Detail = () => {
                       </div>
                       <div className="price-box">
                         <span className="special-price">
-                          <span> {formatter.format(product.price_spe)}₫</span>
+                          <span>{formatter.format(showprice)} ₫</span>
                         </span>
                         <span className="old-price">
-                          <del>{formatter.format(product?.price)}₫</del>
+                          <del>{product?.discount!==0 && formatter.format(product?.price) }</del>
                         </span>
                       </div>
                       <div className="product-summary">
                         <div className="description">
-                          <ul>
-                            <li>CPU: {product?.cpu}</li>
-                            <li>VGA: {product?.vga}</li>
-                            <li>Ram: {product?.ram}</li>
-                            <li>Ổ cứng: {product?.hardDrive}</li>
-                            <li>Màn hình: {product?.screen}</li>
-                            <li>Bảo hành 1 năm.</li>
-                            <li>
-                              Tình trạng:{" "}
-                              {product?.quantity === +0
-                                ? "hết hàng"
-                                : "sẵn hàng"}
-                            </li>
-                          </ul>
+                        <div dangerouslySetInnerHTML={{ __html: product.description }} />
                         </div>
                       </div>
                       <form>
@@ -218,11 +205,6 @@ const Detail = () => {
                           </div>
                         </div>
                       </form>
-                    </div>
-                  </div>
-                  <div className="row mt-4 mb-4">
-                    <div className="col c-12">
-                      <TabProduct product={product} />
                     </div>
                   </div>
                   <div className="row mt-4 mb-4">
