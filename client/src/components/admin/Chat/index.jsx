@@ -20,7 +20,6 @@ export default function Chat() {
   const [khachhang, setKhachhang] = useState();
   const { user } = useSelector((state) => state.auth);
   const { socket } = useContext(DataContext);
-  console.log(socket);
   const scrollRef = useRef();
   const conversationService = new ConversationService();
   const messagesService = new MessagesService();

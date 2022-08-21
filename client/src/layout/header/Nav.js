@@ -19,7 +19,6 @@ const Nav = () => {
     };
     getCates();
   }, []);
-  console.log('categories', categories);
 
   return (
     <div className="wrap_main">
@@ -38,7 +37,7 @@ const Nav = () => {
                   {categories &&
                     categories.map((item) => (
                       <li key={item._id} style={{position: 'relative'}}>
-                        <Link className="a" to={`/list-products?category=${item.name}`} >{item.name}</Link>
+                        <Link className="a" to={`/list-products?category=${item.name}&subcategory=${item.subCategories[0].name}`} >{item.name}</Link>
                         <ul className="tab-menu1" style={{position: 'absolute', top: '0', left: '100%'}}>
                           {
                             item.subCategories.map(i=>(
@@ -60,14 +59,17 @@ const Nav = () => {
                 <Link to="/">Trang chủ</Link>
               </li>
               <li className="nav-item">
-                <Link to="/list-products?category=HP">MÁY TÍNH HP</Link>
+                <Link to="/list-products?category=HP">Laptop</Link>
               </li>
               <li className="nav-item">
-                <Link to="/list-products?category=DELL">MÁY TÍNH DELL</Link>
+                <Link to="/">Điện thoại</Link>
               </li>
               <li className="nav-item">
+                <Link to="/">Tivi</Link>
+              </li>
+              {/* <li className="nav-item">
                 <Link to="/list-products?category=ACER">MÁY TÍNH ACER</Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link to="/contact">Liên hệ</Link>
               </li>

@@ -45,24 +45,23 @@ const Products = () => {
   const getCategories = async () => {
     const res = await categoryService.getCategory();
     setCategories(res);
+    return res;
   };
 
-  const getProductByID = async (page, limit, sort, category, price) => {
+  const getProductByID = async (page, limit, sort, category, nsx, price) => {
     const res = await productService.getProductByCategory2({
       page,
       limit,
       sort,
       category,
+      nsx,
       price,
     });
     setData(res);
   };
   const getSubCates = async (category) => {
     const res = await categoryService.getSubCategories(category);
-    setSubCate(res?.subCates)
-    const result =  new URLSearchParams(search).get("subcategory") || res?.subCates[0].name
-    setSubcategories(result)
-    console.log("result", result);
+    setSubCate((_) => res?.subCates);
   };
   useEffect(() => {
     setLoading(true);
@@ -72,30 +71,38 @@ const Products = () => {
     setSort(sort);
     const category = new URLSearchParams(search).get("category") || "LAPTOP";
     setCategory(category);
-    getSubCates(category)
+    getSubCates(category);
     const price1 = +new URLSearchParams(search).get("price_spe[gte]") || 0;
     const price2 =
       +new URLSearchParams(search).get("price_spe[lte]") || 100000000;
+    const nsx = new URLSearchParams(search).get("subcategory");
+    setSubcategories((_) => nsx);
     setPrice([price1, price2]);
-    getProductByID(page, limit, sort, category, price);
     getCategories();
+    getProductByID(page, limit, sort, category, nsx, price);
     setLoading(false);
   }, [search]);
 
   const handleChangePage = (p) => {
-    pushQuery({ page: p, sort, category, price });
+    pushQuery({ page: p, sort, category, price, subcategory: subcategory });
   };
 
   const handleChangeSort = (e) => {
-    pushQuery({ page, sort: e.target.value, category, price });
+    pushQuery({
+      page,
+      sort: e.target.value,
+      category,
+      price,
+      subcategory: subcategory,
+    });
   };
 
   const handleFilterPrice = () => {
-    pushQuery({ page, sort, category, price });
+    pushQuery({ page, sort, category, price, subcategory: subcategory });
   };
 
   const handleChangeCategory = (e) => {
-    pushQuery({ page, sort, category: e.target.value, price });
+    pushQuery({ page, sort, subcategory: e.target.value, price, category });
   };
   return (
     <>

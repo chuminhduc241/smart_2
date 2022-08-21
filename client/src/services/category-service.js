@@ -22,7 +22,6 @@ export class CategoryService extends ServiceBase {
   };
   getSubCategories = async (params) => {
     const name = params;
-    console.log("check", name);
 
     return await this.get(`/subcategory/${name}`);
   };

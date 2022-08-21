@@ -64,7 +64,7 @@ function Footer() {
                 <li>
                   <a href="#">
                     P. Hỗ trợ khách hàng:
-                    <br /> support@ctshop.com.vn{" "}
+                    <br /> support@doctech.com.vn{" "}
                   </a>
                 </li>
               </ul>
@@ -89,10 +89,10 @@ function Footer() {
                     </a>
                   </li>
                   <li className="contact">
-                    <a>Điện thoại: 0397209076 </a>
+                    <a>Điện thoại: 0192837465 </a>
                   </li>
                   <li className="contact">
-                    <a>Email: congtuyen295@gmail.com</a>
+                    <a>Email: sp@doctech.com</a>
                   </li>
                 </ul>
               </div>

@@ -20,9 +20,9 @@ export class ProductService extends ServiceBase {
     return await this.get(`/getProducts?sort=-discount&limit=6`);
   };
   getProductByCategory2 = async (params) => {
-    const { limit, sort, page, category, price } = params;
+    const { limit, sort, page, category,nsx, price } = params;
     return await this.get(
-      `/getProducts?category=${category}&price_spe[gte]=${price[0]}&price_spe[lte]=${price[1]}&limit=${limit}&page=${page}&sort=${sort}`
+      `/getProducts?nsx=${nsx}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&limit=${limit}&page=${page}&sort=${sort}`
     );
   };
 

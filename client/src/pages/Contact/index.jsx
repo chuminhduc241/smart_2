@@ -12,7 +12,7 @@ const Contact = () => {
       <div className="contact">
         <div className="grid wide">
           <h3 className="title-head">Liên hệ</h3>
-          <p>Mọi thắc mặc liên hệ qua hotline: 0397290976</p>
+          <p>Mọi thắc mặc liên hệ qua hotline: 0192837465</p>
         </div>
       </div>
     </>

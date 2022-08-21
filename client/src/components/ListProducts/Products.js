@@ -31,13 +31,13 @@ const Products = ({ cate }) => {
           <h3>
             <Link to={`/list-products?category=${cate.name}`}>{cate.name}</Link>
           </h3>
-          <ul>
+          {/* <ul>
             {cate.subCategories.map((i) => (
               <li>
                 <Link to={`/list-products?category=${i}`}>{i}</Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <div className="row mt-3">
           {prods.map((prod) => (

@@ -23,7 +23,6 @@ export class AuthServices extends ServiceBase {
     return await this.get("/auth/refresh_token", { withCredentials: true });
   };
   logout = async (params) => {
-    console.log(params);
     return await this.post("/auth/logout", { refeshToken: params });
   };
 }

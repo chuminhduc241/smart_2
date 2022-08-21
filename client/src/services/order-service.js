@@ -27,7 +27,6 @@ export class OrderService extends ServiceBase {
   };
   updateUserInfo = async (params) => {
     const { id, name, address, phone } = params;
-    console.log(params);
     return await this.put(`/updateuserinfo/${id}`, { name, address, phone });
   };
   deleteOrder = async (params) => {

@@ -56,6 +56,7 @@ class APIfeatures {
 const productCtrl = {
   getAllProduct: async (req, res) => {
     try {
+      console.log(req.query);
       const productLength = new APIfeatures(
         Products.find(),
         req.query

@@ -45,7 +45,6 @@ const AddProduct = () => {
   const [cate, setCate] = useState("");
   const alert = useAlert();
   const history = useHistory();
-  console.log(categories);
   const categoryService = new CategoryService();
   const productService = new ProductService();
   // useEffect(() => {
@@ -81,8 +80,6 @@ const AddProduct = () => {
     history.push("/admin/products");
   };
   const handelChangeCategory=(value,setFieldValue)=>{
-    console.log(value);
-    console.log(setFieldValue);
     const element = categories.find(item => item.name=== value);
     const nsx = element?.subCategories.split(", ");
     nsx && setSubcategory(nsx)
@@ -104,7 +101,6 @@ const AddProduct = () => {
                 images: imagesPreview,
                 description
               };
-              console.log(newProduct)
               try {
                 await productService.addProduct(newProduct);
                 history.push("/admin/products");

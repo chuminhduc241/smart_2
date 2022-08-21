@@ -26,8 +26,7 @@ const categoryCtrl = {
   // only admin can create , delete and update category
   createCategory: async (req, res) => {
     try {
-      const { name } = req.body;
-      const subCategories = ['fdfd', 'HfdfdfP']
+      const { name, subCategories } = req.body;
       const category = await Category.findOne({ name });
       if (category) return res.status(400).json({ msg: "danh mục đã tồn tại" });
       const newCategory = new Category({
