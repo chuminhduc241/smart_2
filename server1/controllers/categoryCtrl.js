@@ -84,8 +84,11 @@ const categoryCtrl = {
 
   updateCategory: async (req, res) => {
     try {
-      const { name } = req.body;
-      await Category.findOneAndUpdate({ _id: req.params.id }, { name });
+      const { name,subCategories } = req.body;
+      console.log(subCategories)
+      await Category.findOneAndUpdate({ _id: req.params.id }, { name ,subCategories:  subCategories.map((item) => ({
+        name: item,
+      })),});
 
       res.json({ msg: "Update thành công!" });
     } catch (err) {

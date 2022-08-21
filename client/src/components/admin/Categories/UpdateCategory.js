@@ -1,105 +1,97 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { Tooltip } from "@mui/material";
-import { useAlert } from "react-alert";
+import {
+  Button, Form,
+  Input, message, Modal, Select
+} from "antd";
+import React, { useEffect, useState } from "react";
 import { CategoryService } from "../../../services/category-service";
 
-export default function UpdateCategory({ values }) {
-  const { call, setCall, id } = values;
-  const [category, setCategory] = React.useState();
-  const [open, setOpen] = React.useState(false);
-  const alert = useAlert()
+import "./category.scss";
+import Tags from "./Tag";
 
+const AddCategory = ({ values,id }) => {
+  const {openEdit, setOpenEdit, call,setCall} = values;
   const categoryService = new CategoryService();
-
-  React.useEffect(() => {
-    const getCategory = async () => {
-      try {
-        const res = await categoryService.detailCategory(id);
-        setCategory(res.category);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const [categories,setCategories] = useState(null);
+  useEffect(()=>{
+    const getCategory = async()=>{
+      const res = await categoryService.detailCategory(id);
+   
+     setCategories(res.category);
+    }
     getCategory();
-  }, []);
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  },[])
+  console.log(categories)
+  const handleAdd = async (value) => {
+   try {
+    console.log(value, "value");
+    await categoryService.updateCategory({...value, id});
+    message.success("Sửa danh mục thành công");
+    setCall(!call);
+    setOpenEdit(false);
+   } catch (error) {
+    message.error("Sửa danh mục thất bại")
+    setCall(!call);
+    setOpenEdit(false);
+   }
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  
+  const [form] = Form.useForm();
   return (
-    <>
-      <Tooltip title="Sửa">
-        <Button color="secondary" onClick={handleClickOpen}>
-        <i className="fa-solid fa-pen"></i>
-        </Button>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Sửa danh mục</DialogTitle>
-        <Formik
-          initialValues={category}
-          validationSchema={SignupSchema}
-          onSubmit={async (values) => {
-            try {
-              await categoryService.updateCategory({
-                id: values._id,
-                name: values.name,
-              });
-              setCall(!call);
-              setOpen(false);
-              alert.success("Cập nhật thành công !")
-            } catch (error) {
-              console.log(error.response.data.msg);
-            }
+    <div className="new-product">
+     {categories && <>
+      <Modal
+        width={1200}
+        title="Sửa danh mục"
+        visible={openEdit}
+        onCancel={() => setOpenEdit(false)}
+        className="themsanpham"
+        style={{ top: "50px" }}
+        footer={[
+          <Form form={form} onFinish={handleAdd}>
+            <Button key="back" onClick={() => setOpenEdit(false)}>
+              Hủy
+            </Button>
+            <Button className="addProduct" type="primary" htmlType="submit">
+              Sửa
+            </Button>
+          </Form>,
+        ]}
+      >
+        <Form
+          name="basic"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 18 }}
+         
+          initialValues={{
+            name: categories?.name,
+            
+            subCategories: categories?.subCategories,
           }}
+          autoComplete="off"
+          form={form}
         >
-          {({ errors, touched, handleSubmit, handleChange }) => (
-            <>
-              <DialogContent>
-                <DialogContentText>Hãy nhập tên danh mục!</DialogContentText>
-                <TextField
-                  autoFocus
-                  name="name"
-                  defaultValue={category.name}
-                  margin="dense"
-                  label="Tên danh mục"
-                  type="text"
-                  onChange={handleChange}
-                  fullWidth
-                  variant="standard"
-                />
-                {errors.name && touched.name && (
-                  <div
-                    style={{ color: "red", marginTop: "5px", fontSize: "14px" }}
-                  >
-                    {errors.name}
-                  </div>
-                )}
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>HỦy</Button>
-                <Button onClick={handleSubmit}>Cập nhật</Button>
-              </DialogActions>
-            </>
-          )}
-        </Formik>
-      </Dialog>
-    </>
+          <Form.Item
+            label="Tên Danh Mục"
+            name="name"
+            rules={[{ required: true, message: "Vui lòng tên danh mục" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Nhà sản xuất"
+            name="subCategories"
+            rules={[
+              { required: true, message: "Vui lòng nhập nhà sản xuất" },
+            ]}
+          >
+            {console.log(categories.subCategories)}
+            <Tags form={form}  initcolor = {categories.subCategories.map(item=>item.name)} />
+        </Form.Item>
+        </Form>
+      </Modal>
+     </>}
+    </div>
   );
-}
-const SignupSchema = Yup.object().shape({
-  name: Yup.string().required("Bắt buộc nhập!"),
-});
+};
+
+export default AddCategory;

@@ -9,12 +9,13 @@ export class CategoryService extends ServiceBase {
     return await this.get(`/category/${id}`);
   };
   newCategory = async (params) => {
-    const { name } = params;
-    return await this.post("/category", { name });
+    const { name ,subCategories} = params;
+    return await this.post("/category", { name,subCategories });
   };
   updateCategory = async (params) => {
-    const { id, name } = params;
-    return await this.put(`/category/${id}`, { name });
+    const { id, name,subCategories } = params;
+   
+    return await this.put(`/category/${id}`, { name,subCategories });
   };
   deleteCategory = async (params) => {
     const id = params;

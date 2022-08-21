@@ -16,21 +16,26 @@ import AddCategory from "./AddCategory";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
 import { CategoryService } from "../../../services/category-service";
-
+import EditIcon from '@mui/icons-material/Edit';
 import "./style.scss";
+import { Button } from "antd";
 
 const columns = [
   { id: "name", label: "Danh mục sản phẩm", minWidth: 250 },
   { id: "createdAt", label: "Ngày tạo", minWidth: 250 },
   { id: "updatedAt", label: "Chỉnh sửa gần nhất", minWidth: 250 },
+  { id: "subCategories", label: "Nhà sản xuất", minWidth: 250 },
 ];
 
-function createData(id, name, createdAt, updatedAt) {
+function createData(id, name, createdAt, updatedAt,subCategories) {
   return {
     id,
     name,
     createdAt,
     updatedAt,
+    subCategories: subCategories.reduce((pre,item)=>{
+      return pre +=  item.name + " ";
+    }, "")
   };
 }
 
@@ -40,9 +45,10 @@ const Categories = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [call, setCall] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [openAdd,setOpenAdd] = useState(false);
+  const [openEdit,setOpenEdit] = useState(false);
   const categoryService = new CategoryService();
-
+  const [idEdit,setIdEdit] = useState(null);
   //default
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -62,7 +68,8 @@ const Categories = () => {
       cate._id,
       cate.name,
       moment(cate?.createdAt).calendar(),
-      moment(cate?.updatedAt).fromNow()
+      moment(cate?.updatedAt).fromNow(),
+      cate.subCategories  
     )
   );
 
@@ -81,7 +88,7 @@ const Categories = () => {
 
       <div className="categoriesAd">
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <AddCategory values={{ call, setCall }} />
+        <a onClick={()=>setOpenAdd(true)} className="add-product_icon" style={{margin: 16}}>Thêm Danh Mục</a>
           <TableContainer sx={{ maxHeight: 500 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -128,9 +135,12 @@ const Categories = () => {
                           align="center"
                           style={{ width: "150px" }}
                         >
-                          <UpdateCategory
-                            values={{ call, setCall, id: row.id }}
-                          />
+                          
+                          <EditIcon onClick = {()=>{
+                            setIdEdit(row.id);
+                            setOpenEdit(true);
+                          }}/>
+                          
                           <DeleteCategory
                             values={{ call, setCall, id: row.id }}
                           />
@@ -152,6 +162,12 @@ const Categories = () => {
           />
         </Paper>
       </div>
+      {openAdd && <AddCategory values ={{openAdd, setOpenAdd, call, setCall}} />}
+      {openEdit &&   <UpdateCategory
+                            values={{ openEdit, call, setCall, setOpenEdit }}
+                           
+                            id = {idEdit}
+/>}
     </>
   );
 };
