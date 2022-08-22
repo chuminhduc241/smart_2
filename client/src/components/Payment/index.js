@@ -101,6 +101,7 @@ const Payment = () => {
                           name="email"
                           defaultValue={user?.email}
                           onChange={handleChange}
+                          disabled={true}
                         />
                         {touched.email && errors.email && (
                           <div style={{ color: "red" }}>{errors.email}</div>
@@ -113,6 +114,7 @@ const Payment = () => {
                           name="name"
                           defaultValue={user?.name}
                           onChange={handleChange}
+                          disabled={true}
                         />
                         {touched.name && errors.name && (
                           <div style={{ color: "red" }}>{errors.name}</div>
