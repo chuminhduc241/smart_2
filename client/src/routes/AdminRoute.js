@@ -9,7 +9,7 @@ const AdminRoute = (props) => {
   const { isAdmin } = useSelector((state) => state.auth); // chưa đúng
   return (
     <>
-      {true ? (
+      {isAdmin ? (
         <DefaultAdminLayout>
           <Route {...props} />
         </DefaultAdminLayout>

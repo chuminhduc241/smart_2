@@ -30,6 +30,7 @@ const Detail = () => {
     };
     getOrder();
   }, [call]);
+  console.log(order);
   const handleChangeInfoUser = async (e) => {
     e.preventDefault();
     await orderServices.updateUserInfo({ ...newInfo, id: params.id });
@@ -65,8 +66,10 @@ const Detail = () => {
                   </div>
                   <div className="cart-tbody">
                     {order?.cart &&
-                      order.cart.map((item, index) => (
-                        <div key={index} className="item-cart">
+                      order.cart.map((item, index) => {
+                        const showprice = item.id_product.discount!==0 ? item.id_product.price - item.id_product.price*item.id_product.discount/100 : item.id_product.price; 
+                        return <>
+                         <div key={index} className="item-cart">
                           <div style={{ width: "17%" }}>
                             <a className="product-image" href="/">
                               <img
@@ -85,7 +88,7 @@ const Detail = () => {
                           <div className="a-center" style={{ width: "15%" }}>
                             <span className="item-price">
                               <span className="price">
-                                {formatter.format(item?.id_product?.price_spe)}₫
+                                {formatter.format(showprice)}₫
                               </span>
                             </span>
                           </div>
@@ -94,16 +97,19 @@ const Detail = () => {
                           </div>
                           <div className="a-center" style={{ width: "15%" }}>
                             <span className="item-price">
+                              {item.id_product.discount!==0 &&
                               <span className="price">
                                 {formatter.format(
-                                  item?.id_product?.price_spe * item.number
+                                  showprice * item.number
                                 )}
                                 ₫
-                              </span>
+                              </span>}
                             </span>
                           </div>
                         </div>
-                      ))}
+                        </>
+                        
+                  })}
                   </div>
                   <table className="shopping-cart-table-total mb-0">
                     <tfoot>

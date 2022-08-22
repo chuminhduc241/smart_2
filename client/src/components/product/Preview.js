@@ -15,10 +15,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Preview({ product }) {
   const [open, setOpen] = React.useState(false);
+  const {discount,price} = product;
   const dispatch = useDispatch()
   const alert = useAlert();
   const formatter = new Intl.NumberFormat("vn");
-
+  const showprice = discount!==0 ? price - price*discount/100 : price; 
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -104,19 +105,17 @@ export default function Preview({ product }) {
                   </div>
                   <div className="price-box">
                     <span className="special-price">
-                      <span> {formatter.format(product.price_spe)}₫</span>
+                      <span> {formatter.format(showprice)}₫</span>
                     </span>
                     <span className="old-price">
+                      {discount && 
                       <del>{formatter.format(product?.price)}₫</del>
+                      }
                     </span>
                   </div>
                   <div className="product-summary">
                     <div className="description">
-                      CPU: {product?.cpu}
-                      VGA: {product?.vga}
-                      Ram: {product?.ram}Ổ cứng: {product?.hardDrive}
-                      Màn hình: {product?.screen}
-                      Bảo hành 1 năm. Tình trạng: Sẵn hàng
+                    <div dangerouslySetInnerHTML={{ __html: product.description }} />
                     </div>
                   </div>
                   <div className="button_actions">
