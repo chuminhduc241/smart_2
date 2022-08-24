@@ -28,7 +28,7 @@ const DefaultAdminLayout = (props) => {
         <div className="logo-name">
           <div className="logo-image"></div>
           <a href="/admin" className="logo_name">
-            CT SHOP
+             DT SHOP
           </a>
         </div>
         <div className="menu-items">
