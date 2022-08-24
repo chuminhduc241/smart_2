@@ -25,7 +25,7 @@ const sendEmail = (to, url, txt) => {
     auth: {
       type: "OAuth2",
       user: SENDER_EMAIL_ADDRESS,
-      name: "Công Tuyền",
+      name: "Doc Tech",
       clientId: MAILING_SERVICE_CLIENT_ID,
       clientSecret: MAILING_SERVICE_CLIENT_SECRET,
       refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
@@ -39,7 +39,7 @@ const sendEmail = (to, url, txt) => {
     html: `
             <div style="max-width: 700px; margin:40px auto; border: 1px solid #ddd; padding: 50px 20px; font-size: 110%; border-radius: 10px;">
             <h2 style="text-align: center; text-transform: uppercase;color: teal;">CHÀO MỪNG BẠN ĐẾN VỚI CongTuyen SHOP</h2>
-            <p>Xin chúc mừng! Bạn sắp bắt đầu sử dụng Công Tuyền Shop. Chỉ cần nhấp vào nút bên dưới để xác thực địa chỉ email của bạn.</p>
+            <p>Xin chúc mừng! Bạn sắp bắt đầu sử dụng Độc Tech Shop. Chỉ cần nhấp vào nút bên dưới để xác thực địa chỉ email của bạn.</p>
             <a href=${url} style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px auto; display: block; border-radius: 20px; width: 260px; text-align: center;">${txt}</a>
             </div>
         `,
