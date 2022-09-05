@@ -73,7 +73,7 @@
           pointer-events: none;
         }
       }
-      &:hover .ul_account{
+      &:hover .ul_account {
         display: block;
       }
     }
@@ -83,4 +83,10 @@
       justify-content: center;
     }
   }
+}
+
+.tb-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 }

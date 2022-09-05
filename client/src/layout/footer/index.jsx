@@ -53,7 +53,7 @@ function Footer() {
               <h6 className="title">Hỗ trợ khách hàng</h6>
               <ul className="list">
                 <li>
-                  <a href="#">Bảo hành: 039 72 090 76 </a>
+                  <a href="#">Bảo hành: 0192837465 </a>
                 </li>
                 <li>
                   <a href="#">Gửi yêu cầu bảo hành </a>
@@ -138,7 +138,7 @@ function Footer() {
               <div className="list_social">
                 <ul>
                   <li>
-                    <a href="https://www.facebook.com/lctuyen295/">
+                    <a >
                       <i className="fa-brands fa-facebook"></i>
                     </a>
                   </li>

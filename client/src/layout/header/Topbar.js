@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import { logOut } from "../../redux/authSlice";
 import "./topbar.scss";
 
 const Topbar = () => {
-  const { isLogged, isAdmin } = useSelector((state) => state.auth);
+  const { isLogged, isAdmin, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -29,9 +30,9 @@ const Topbar = () => {
           <div className="topbar-right col c-12 m-12 l-6">
             <ul>
               <li className="login_content">
-                <Link to="/login">
-                  <i className="fa-solid fa-user"></i>
-                  Tài khoản
+                <Link to="/login" style={isLogged ? {marginRight: '15px'}: null}>
+                  
+                  {!isLogged ? <><i className="fa-solid fa-user"></i>Tài khoản</>: <img className="tb-avatar" src={user?.avatar} alt="" />}
                 </Link>
                 {!isLogged && (
                   <ul className="ul_account">

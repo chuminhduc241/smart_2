@@ -13,7 +13,7 @@ const MidHeader = () => {
               <Swipeable />
             </div>
             <a href="/" className="d-block">
-              <img src={logo} width ="45px" height="45px" alt="logo" />
+              <img src={logo}height="50px" alt="logo" />
             </a>
             <div></div>
           </div>
