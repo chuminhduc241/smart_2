@@ -209,6 +209,11 @@ const Detail = () => {
                   </div>
                   <div className="row mt-4 mb-4">
                     <div className="col c-12">
+                      <TabProduct product={product} />
+                    </div>
+                  </div>
+                  <div className="row mt-4 mb-4">
+                    <div className="col c-12">
                       <Comment values={{ call, setCall }} />
                     </div>
                   </div>

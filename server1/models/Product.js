@@ -11,7 +11,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: [true, "Nhập mota"],
     },
-   
+    dep: {
+      type: String,
+      required: [true, "Nhập mota"],
+    },
     quantity: {
       type: Number,
       required: [true, "Please so luong"],

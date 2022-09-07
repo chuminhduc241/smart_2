@@ -13,14 +13,18 @@ class APIfeatures {
     this.queryString = queryString;
   }
   filtering() {
-    const queryObj = { ...this.queryString }; //queryString = req.query
-
+    const queryObj = { ...this.queryString,
+      price: {
+        gte: this.queryString.price.gte,
+        lte: this.queryString.price.lte,
+      }
+     }; //queryString = req.query
     const excludedFields = ["page", "sort", "limit"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(
-      /\b(gte|gt|lt|lte|regex)\b/i,
+      /\b(gte|gt|lt|lte|regex)\b/g,
       (match) => "$" + match
     );
     //    gte = greater than or equal
@@ -120,7 +124,9 @@ const productCtrl = {
         color,
         discount,
         description,
+        dep
       } = req.body;
+      console.log("dep", dep);
       let images = [];
       if (typeof req.body.images === "string") {
         images.push(req.body.images);
@@ -147,6 +153,7 @@ const productCtrl = {
         description,
         discount,
         images: imagesLinks,
+        dep
       });
       await newProduct.save();
       return res.status(200).json({
@@ -169,7 +176,9 @@ const productCtrl = {
       color,
       discount,
       description,
+      dep
     } = req.body;
+    console.log('dep',dep);
     let product = await Products.findById(req.params.id);
     if (!product) {
       return next(new ErrorHander("Product not found", 404));
@@ -186,6 +195,7 @@ const productCtrl = {
           color,
           discount,
           description,
+          dep
         }
       );
       res.status(200).json({

@@ -52,15 +52,15 @@ export default function TabProduct({ product }) {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Mô tả sản phẩm" {...a11yProps(0)} />
-          <Tab label="Thông số kĩ thuật" {...a11yProps(1)} />
+          {/* <Tab label="Thông số kĩ thuật" {...a11yProps(1)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {product?.description}
+      <div dangerouslySetInnerHTML={{ __html: product.dep }} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <Table product = {product} />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 }

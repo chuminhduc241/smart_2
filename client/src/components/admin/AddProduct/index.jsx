@@ -39,6 +39,7 @@ const AddProduct = () => {
     subCategories: "nokia, sam sung, oppo"
   }]);
   const [description,setDescription] = useState("");
+  const [dep,setDep] = useState("");
   const [subcategory, setSubcategory] = useState([]);
   const category = categories?.map((item)=>item.name);
   const [imagesPreview, setImagesPreview] = useState([]);
@@ -102,7 +103,8 @@ const AddProduct = () => {
               const newProduct = {
                 ...values,
                 images: imagesPreview,
-                description
+                description,
+                dep
               };
               try {
                 await productService.addProduct(newProduct);
@@ -223,6 +225,9 @@ const AddProduct = () => {
                 </div>
                 <div className="col l-12">
                     <Editor style={{height:'320px'}} value={description} onTextChange={(e) => setDescription(e.htmlValue)} />
+                </div>
+                <div className="col l-12">
+                    <Editor style={{height:'320px'}} value={dep} onTextChange={(e) => setDep(e.htmlValue)} />
                 </div>
                 <div id="createProductFormFile" className="col">
                   <input
