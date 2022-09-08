@@ -11,7 +11,7 @@ const useCustomRouter = () => {
     if (category) query.category = category;
     if (subcategory) query.subcategory = subcategory;
     const newQuery = new URLSearchParams(query).toString();
-    history.push(`${pathname}?${newQuery}&price_spe[gte]=${price[0]}&price_spe[lte]=${price[1]}`);
+    history.push(`${pathname}?${newQuery}&subcategory=${subcategory}&price_spe[gte]=${price[0]}&price_spe[lte]=${price[1]}`);
   };
 
   return { pushQuery };
