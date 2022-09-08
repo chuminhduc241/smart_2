@@ -17,7 +17,7 @@ export class ProductService extends ServiceBase {
     return await this.get(`/getProducts?category=${category}&limit=${limit}`);
   };
   getProductsByDiscount = async (params) => {
-    return await this.get(`/getProducts?sort=-discount&limit=6`);
+    return await this.get(`/getProducts`);
   };
   getProductByCategory2 = async (params) => {
     const { limit, sort, page, category,nsx, price } = params;

@@ -13,20 +13,18 @@ class APIfeatures {
     this.queryString = queryString;
   }
   filtering() {
-    const queryObj = { ...this.queryString,
-      price: {
-        gte: this.queryString.price.gte,
-        lte: this.queryString.price.lte,
-      }
-     }; //queryString = req.query
+    const queryObj = { ...this.queryString }; //queryString = req.query
+
     const excludedFields = ["page", "sort", "limit"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(
-      /\b(gte|gt|lt|lte|regex)\b/i,
+      /\b(gte|gt|lt|lte|regex)\b/g,
       (match) => "$" + match
-    );
+    );//queryString = req.query
+
+   
     //    gte = greater than or equal
     //    lte = lesser than or equal
     //    lt = lesser than
