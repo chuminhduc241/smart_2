@@ -30,6 +30,11 @@ export class ProductService extends ServiceBase {
     const image = params.images;
     return await this.post("/createProduct", { ...params, images: image });
   };
+  searchProduct = async (params) => {
+    const {name} = params;
+    return await this.get(`/search/?name=${name}`)
+  };
+  
   updateProduct = async (params) => {
     const { id } = params;
     const { images } = params;

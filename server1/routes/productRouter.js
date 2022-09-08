@@ -5,6 +5,7 @@ const productCtrl = require("../controllers/productCtrl");
 router.get("/getProducts", productCtrl.getAllProduct);
 router.get("/getProduct/:id", productCtrl.detailProduct);
 router.post("/createProduct", productCtrl.createProduct);
+router.get("/search", productCtrl.getProductByLike);
 router.delete("/deleteProduct/:id", productCtrl.deleteProduct);
 router.put("/updateProduct/:id", productCtrl.updateProduct);
 module.exports = router;

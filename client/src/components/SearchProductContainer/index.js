@@ -13,7 +13,7 @@ const SearchProduct = () => {
 
   const getProducts = async (name) => {
     console.log(name);
-    const res = await productService.searchProducts({ name: name });
+    const res = await productService.searchProduct({ name: name });
     setProduct(res.products);
   };
   useEffect(() => {

@@ -23,7 +23,7 @@ class APIfeatures {
       /\b(gte|gt|lt|lte|regex)\b/g,
       (match) => "$" + match
     );//queryString = req.query
-
+      console.log(queryStr);
    
     //    gte = greater than or equal
     //    lte = lesser than or equal
@@ -54,6 +54,24 @@ class APIfeatures {
 }
 
 const productCtrl = {
+  getProductByLike:  async (req, res) => {
+    try { 
+     
+      var regex = new RegExp([ req.query.name].join(""), "i");
+
+      console.log(regex);
+      const products = await  Products.find({ name: regex } );
+      console.log(products);
+      res.status(200).json({
+        success: true,
+        products,
+      });
+    } catch (error) {
+      res.status(500).json({
+        msg: error.message,
+      });
+    }
+  },
   getAllProduct: async (req, res) => {
     try {
       console.log(req.query);
